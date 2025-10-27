@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspace": {
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "id": "[concat(resourceId('Microsoft.OperationalInsights/workspaces/providers', parameters('workspace'), 'Microsoft.SecurityInsights'),'/alertRules/9205d62c-1455-448a-b5e7-2bd0165d4550')]",
+            "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/9205d62c-1455-448a-b5e7-2bd0165d4550')]",
+            "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
+            "kind": "Scheduled",
+            "apiVersion": "2023-12-01-preview",
+            "properties": {
+                "displayName": "Multiple Failed SSH Logins",
+                "description": "Detects repeated failed ssh attempts on Ubuntu VM",
+                "severity": "Medium",
+                "enabled": true,
+                "query": "let threshold = 5;\r\nSyslog\r\n| where Facility in (\"auth\",\"authpriv\")\r\n| where ProcessName == \"sshd\"\r\n| where SyslogMessage has_any (\"Failed password\",\"Invalid user\")\r\n| extend SrcIP = extract(@'from ([0-9\\.]+) port',1,SyslogMessage)\r\n| summarize FailedCount = count(),\r\n            FirstSeen = min(TimeGenerated),\r\n            LastSeen  = max(TimeGenerated)\r\n  by SrcIP, HostName\r\n| where FailedCount >= threshold\r\n",
+                "queryFrequency": "PT5M",
+                "queryPeriod": "PT15M",
+                "triggerOperator": "GreaterThan",
+                "triggerThreshold": 1,
+                "suppressionDuration": "PT5H",
+                "suppressionEnabled": false,
+                "startTimeUtc": "2025-10-25T03:25:00.000Z",
+                "tactics": [
+                    "CredentialAccess"
+                ],
+                "techniques": [
+                    "T1110"
+                ],
+                "subTechniques": [],
+                "alertRuleTemplateName": null,
+                "incidentConfiguration": {
+                    "createIncident": true,
+                    "groupingConfiguration": {
+                        "enabled": true,
+                        "reopenClosedIncident": false,
+                        "lookbackDuration": "PT1H",
+                        "matchingMethod": "AllEntities",
+                        "groupByEntities": [],
+                        "groupByAlertDetails": [],
+                        "groupByCustomDetails": []
+                    }
+                },
+                "eventGroupingSettings": {
+                    "aggregationKind": "AlertPerResult"
+                },
+                "alertDetailsOverride": {
+                    "alertDynamicProperties": []
+                },
+                "customDetails": {},
+                "entityMappings": null,
+                "sentinelEntitiesMappings": null,
+                "templateVersion": null
+            }
+        }
+    ]
+}
