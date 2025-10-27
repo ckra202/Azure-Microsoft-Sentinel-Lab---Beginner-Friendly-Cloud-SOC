@@ -51,7 +51,7 @@ New-AzOperationalInsightsWorkspace -ResourceGroupName $rgName -Name $workspaceNa
 <img width="747" height="353" alt="image" src="https://github.com/user-attachments/assets/7a57df79-bf3f-4c3b-9595-3e564031162e" />
 
 
-### **2️⃣ Create Ubuntu VM and Connect AMA
+### 2️⃣ Create Ubuntu VM and Connect AMA
 
 Portal path:
 
@@ -62,6 +62,7 @@ Allow port 22 inbound, assign a public IP.
 After creation, go to Extensions + Applications → Add → Azure Monitor Agent (AMA) → Link to law-aisec-eastus2.
 
 💡 PowerShell alternative:
+
 $vmName = "vm-buntu-target"
 $vmSize = "Standard D2als v6 (2 vcpus, 4 GiB memory)"
 $cred = Get-Credential -Message "Enter VM credentials"
@@ -80,7 +81,7 @@ Set-AzVMExtension -ResourceGroupName $rgName -VMName $vmName `
 <img width="506" height="700" alt="image" src="https://github.com/user-attachments/assets/4ec57e39-8577-4ef2-94f9-fd4cd914df11" />
 
 
-### **3️⃣ Enable Microsoft Sentinel
+### 3️⃣ Enable Microsoft Sentinel
 
 Portal path:
 
@@ -138,7 +139,7 @@ Invoke-AzVMRunCommand -ResourceGroupName $rgName -VMName $vmName `
 ```
 <img width="536" height="29" alt="image" src="https://github.com/user-attachments/assets/893df23f-064b-4d48-862a-a9eed5f559cb" />
 
-### **6️⃣ Generate Failed SSH Logins
+### 6️⃣ Generate Failed SSH Logins
 
 From your local terminal:
 ```
@@ -149,7 +150,7 @@ Enter the wrong password 5–10 times.
 
 <img width="686" height="482" alt="image" src="https://github.com/user-attachments/assets/fcd4c60e-ed76-49e6-b7d7-eba1ac0e479f" />
 
-### **7️⃣ Verify Syslog Data
+### 7️⃣ Verify Syslog Data
 
 Portal path:
 Microsoft Sentinel → Logs → Run the query below:
@@ -160,7 +161,7 @@ Syslog
 | project TimeGenerated, Facility, Computer, SyslogMessage
 | sort by TimeGenerated desc
 
-### **8️⃣ Create Analytics Rule
+### 8️⃣ Create Analytics Rule
 
 Portal path:
 Sentinel → Configuration → Analytics → + Create → Scheduled Query Rule → Paste the query below:
@@ -178,7 +179,7 @@ Syslog
 
 <img width="1489" height="368" alt="image" src="https://github.com/user-attachments/assets/b74d0b1d-9820-4f2e-8b60-1c3ac4b0bbea" />
 
-### **9️⃣ Validate Incident Creation
+### 9️⃣ Validate Incident Creation
 
 Go to Microsoft Sentinel → Threat management → Incidents
 
