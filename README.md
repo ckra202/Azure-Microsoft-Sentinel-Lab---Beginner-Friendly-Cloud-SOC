@@ -113,6 +113,8 @@ Monitor → Data Collection Rules → +Create
 Add Syslog facilities: auth, authpriv, daemon
 Severity: info
 
+// JSON export of Sentinel analytic rule for failed SSH detection
+
 Link the DCR to vm-buntu-target.
 
 💡 **PowerShell alternative:**
@@ -224,3 +226,6 @@ Verify incident: “Multiple Failed SSH Logins”
 PasswordAuthentication no
 sudo systemctl restart sshd
 ```
+
+---
+**Tags:** #MicrosoftSentinel #AzureSecurity #SOC #CloudSecurity #KQL #SIEM #CybersecurityLab
