@@ -9,7 +9,7 @@ This lab demonstrates how Azure-native security tools collect, analyze, and resp
 - [Lab Overview](#-lab-overview)
 - [Azure Resource Deployment (Portal)](#-azure-resource-deployment-portal)
 - [Sentinel Configuration](#-sentinel-configuration)
-- [Reflection & Learning Outcomes](#-reflection--learning-outcomes)
+- [Reflection and Learning Outcomes](#-reflection-and-learning-outcomes)
 - [Screenshot Checklist](#-screenshot-checklist)
 
 
@@ -207,7 +207,7 @@ Verify incident: “Multiple Failed SSH Logins”
 <img width="855" height="566" alt="image" src="https://github.com/user-attachments/assets/4a14f439-6223-46c8-98f4-d40ad329e4b0" />
 
 
-## 🧠Reflection & Learning Outcomes
+## 🧠Reflection an Learning Outcomes
 
 - Understood Azure Monitor Agent and DCR-based Syslog ingestion
 
