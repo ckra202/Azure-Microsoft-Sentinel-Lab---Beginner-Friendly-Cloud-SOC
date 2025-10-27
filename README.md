@@ -62,7 +62,7 @@ Allow port 22 inbound, assign a public IP.
 After creation, go to Extensions + Applications → Add → Azure Monitor Agent (AMA) → Link to law-aisec-eastus2.
 
 💡 **PowerShell alternative:**
-
+```Markdown
 $vmName = "vm-buntu-target"
 $vmSize = "Standard D2als v6 (2 vcpus, 4 GiB memory)"
 $cred = Get-Credential -Message "Enter VM credentials"
@@ -71,11 +71,11 @@ $cred = Get-Credential -Message "Enter VM credentials"
  New-AzVM -ResourceGroupName $rgName -Name $vmName -Location $location `
   -Image "Canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest" `
   -PublicIpAddressName "$vmName-ip" -OpenPorts 22 -Size $vmSize -Credential $cred
-
 # Attach Azure Monitor Agent
 Set-AzVMExtension -ResourceGroupName $rgName -VMName $vmName `
   -Name "AzureMonitorLinuxAgent" -Publisher "Microsoft.Azure.Monitor" `
   -ExtensionType "AzureMonitorLinuxAgent" -TypeHandlerVersion "1.10" -Location $location
+```
 ```
 
 <img width="861" height="404" alt="image" src="https://github.com/user-attachments/assets/eaa7881b-116f-45ca-8b8a-82a1e1b66dfb" />
