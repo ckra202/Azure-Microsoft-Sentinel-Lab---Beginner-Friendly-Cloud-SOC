@@ -22,7 +22,6 @@ This lab demonstrates how Azure-native security tools collect, analyze, and resp
 
 ---
 
----
 
 ```markdown
 ## Table of Contents
