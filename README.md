@@ -152,10 +152,7 @@ From your local terminal:
 ```
 ssh -o PubkeyAuthentication=no azureuser@<VM_PUBLIC_IP>
 ```
-
 Enter the wrong password 5–10 times.
-
-<img width="686" height="482" alt="image" src="https://github.com/user-attachments/assets/fcd4c60e-ed76-49e6-b7d7-eba1ac0e479f" />
 
 ### **7️⃣ Verify Syslog Data**
 
@@ -169,6 +166,7 @@ Syslog
 | project TimeGenerated, Facility, Computer, SyslogMessage
 | sort by TimeGenerated desc
 ```
+<img width="686" height="482" alt="image" src="https://github.com/user-attachments/assets/fcd4c60e-ed76-49e6-b7d7-eba1ac0e479f" />
 
 ### **8️⃣ Create Analytics Rule**
 
