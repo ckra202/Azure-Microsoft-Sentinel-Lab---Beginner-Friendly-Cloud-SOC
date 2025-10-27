@@ -5,6 +5,15 @@ Simulate and detect brute-force SSH login attempts using Microsoft Sentinel, Azu
 This lab demonstrates how Azure-native security tools collect, analyze, and respond to authentication anomalies in a cloud environment.
 
 ---
+## Table of Contents
+- [Lab Overview](#-lab-overview)
+- [Azure Resource Deployment (Portal)](#-azure-resource-deployment-portal)
+- [Sentinel Configuration](#-sentinel-configuration)
+- [Reflection & Learning Outcomes](#-reflection--learning-outcomes)
+- [Screenshot Checklist](#-screenshot-checklist)
+
+
+---
 
 ## 🧩 Lab Overview
 
@@ -21,15 +30,6 @@ This lab demonstrates how Azure-native security tools collect, analyze, and resp
 | **Incident Severity** | Medium |
 
 ---
-
-
-## Table of Contents
-- [Lab Overview](#-lab-overview)
-- [Azure Resource Deployment (Portal)](#-azure-resource-deployment-portal)
-- [Sentinel Configuration](#-sentinel-configuration)
-- [Reflection & Learning Outcomes](#-reflection--learning-outcomes)
-- [Screenshot Checklist](#-screenshot-checklist)
-
 
 ---
 ## ⚙️ Azure Resource Deployment (Portal)
