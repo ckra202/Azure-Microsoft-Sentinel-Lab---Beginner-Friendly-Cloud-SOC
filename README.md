@@ -66,6 +66,7 @@ After creation, go to Extensions + Applications → Add → Azure Monitor Agent 
 $vmName = "vm-buntu-target"
 $vmSize = "Standard D2als v6 (2 vcpus, 4 GiB memory)"
 $cred = Get-Credential -Message "Enter VM credentials"
+
 ```
  New-AzVM -ResourceGroupName $rgName -Name $vmName -Location $location `
   -Image "Canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest" `
@@ -76,6 +77,7 @@ Set-AzVMExtension -ResourceGroupName $rgName -VMName $vmName `
   -Name "AzureMonitorLinuxAgent" -Publisher "Microsoft.Azure.Monitor" `
   -ExtensionType "AzureMonitorLinuxAgent" -TypeHandlerVersion "1.10" -Location $location
 ```
+
 <img width="861" height="404" alt="image" src="https://github.com/user-attachments/assets/eaa7881b-116f-45ca-8b8a-82a1e1b66dfb" />
 
 <img width="506" height="700" alt="image" src="https://github.com/user-attachments/assets/4ec57e39-8577-4ef2-94f9-fd4cd914df11" />
@@ -88,6 +90,7 @@ Portal path:
 Go to Microsoft Sentinel → + Create → Select existing workspace → law-aisec-eastus2 → Add
 
 💡 PowerShell alternative: 
+
 ` Set-AzSentinelOnboardingState -ResourceGroupName $rgName -WorkspaceName $workspaceName -Enable $true `
 
 <img width="770" height="298" alt="image" src="https://github.com/user-attachments/assets/f64e56f8-f657-48eb-96d8-83302562c96e" />
@@ -96,10 +99,9 @@ Go to Microsoft Sentinel → + Create → Select existing workspace → law-aise
 ### **4️⃣ Create Data Collection Rule (DCR)
 
 Portal path:
+
 Monitor → Data Collection Rules → +Create
-
 Add Syslog facilities: auth, authpriv, daemon
-
 Severity: info
 
 Link the DCR to vm-buntu-target.
@@ -125,11 +127,13 @@ New-AzDataCollectionRule `
 Portal path:
 SSH into VM → Edit /etc/ssh/sshd_config.d/50-cloud-init.conf →
 
+```markdown
 PasswordAuthentication yes
 ChallengeResponseAuthentication no
 
 Save and restart SSH service.
 <img width="586" height="87" alt="image" src="https://github.com/user-attachments/assets/4243373b-69e6-47fa-8b24-4987d6fd4f5c" />
+```
 
 💡 **PowerShell alternative:**
 ```
@@ -137,6 +141,7 @@ Invoke-AzVMRunCommand -ResourceGroupName $rgName -VMName $vmName `
   -CommandId "RunShellScript" `
   -ScriptString 'sudo sed -i "s/^PasswordAuthentication.*/PasswordAuthentication yes/" /etc/ssh/sshd_config.d/50-cloud-init.conf && sudo systemctl restart sshd'
 ```
+
 <img width="536" height="29" alt="image" src="https://github.com/user-attachments/assets/893df23f-064b-4d48-862a-a9eed5f559cb" />
 
 ### 6️⃣ Generate Failed SSH Logins
@@ -155,17 +160,19 @@ Enter the wrong password 5–10 times.
 Portal path:
 Microsoft Sentinel → Logs → Run the query below:
 
+```kql
 Syslog
 | where TimeGenerated > ago(10m)
 | where SyslogMessage has "Failed password"
 | project TimeGenerated, Facility, Computer, SyslogMessage
 | sort by TimeGenerated desc
+```
 
 ### **8️⃣ Create Analytics Rule**
 
 Portal path:
 Sentinel → Configuration → Analytics → + Create → Scheduled Query Rule → Paste the query below:
-
+```kql
 let threshold = 5;
 Syslog
 | where Facility in ("auth","authpriv")
@@ -176,6 +183,7 @@ Syslog
            LastSeen  = max(TimeGenerated)
            by SrcIP, HostName
 | where FailedCount >= threshold
+```
 
 <img width="1489" height="368" alt="image" src="https://github.com/user-attachments/assets/b74d0b1d-9820-4f2e-8b60-1c3ac4b0bbea" />
 
