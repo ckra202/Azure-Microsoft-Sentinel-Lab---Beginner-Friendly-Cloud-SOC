@@ -23,14 +23,13 @@ This lab demonstrates how Azure-native security tools collect, analyze, and resp
 ---
 
 
-```markdown
 ## Table of Contents
 - [Lab Overview](#-lab-overview)
 - [Azure Resource Deployment (Portal)](#-azure-resource-deployment-portal)
 - [Sentinel Configuration](#-sentinel-configuration)
 - [Reflection & Learning Outcomes](#-reflection--learning-outcomes)
 - [Screenshot Checklist](#-screenshot-checklist)
-```
+
 
 ---
 ## ⚙️ Azure Resource Deployment (Portal)
