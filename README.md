@@ -130,12 +130,14 @@ SSH into VM → Edit /etc/ssh/sshd_config.d/50-cloud-init.conf →
 ```markdown
 PasswordAuthentication yes
 ChallengeResponseAuthentication no
-
-Save and restart SSH service.
-<img width="586" height="87" alt="image" src="https://github.com/user-attachments/assets/4243373b-69e6-47fa-8b24-4987d6fd4f5c" />
 ```
+Save and restart SSH service.
+
+<img width="586" height="87" alt="image" src="https://github.com/user-attachments/assets/4243373b-69e6-47fa-8b24-4987d6fd4f5c" />
+
 
 💡 **PowerShell alternative:**
+
 ```
 Invoke-AzVMRunCommand -ResourceGroupName $rgName -VMName $vmName `
   -CommandId "RunShellScript" `
@@ -210,7 +212,7 @@ Verify incident: “Multiple Failed SSH Logins”
 - Learned how to mix Portal configuration and PowerShell automation
 
 
-🔒 After testing, revert to secure SSH settings:
+**🔒 After testing, revert to secure SSH settings:**
 ```
 PasswordAuthentication no
 sudo systemctl restart sshd
